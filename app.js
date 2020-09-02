@@ -8,6 +8,8 @@ var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var homeRouter = require('./routes/home');
 var ementaRouter = require('./routes/ementa');
+
+
 var app = express();
 
 // view engine setup

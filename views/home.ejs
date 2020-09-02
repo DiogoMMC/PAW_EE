@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Restaurante Bom Sabor</title>
-    <link rel="stylesheet" type="text/css" href="styling.css">
-</head>
+    <%- include('./partials/head.ejs') %>
 <body>
+    <%- include('./partials/nav.ejs') %>
     <div class="bemvindo">
         <h1> Bem Vindo ao Restaurante Bom Sabor</h1>
         <p>se é um cliente à procura de fazer uma reserva, selecione a opção <strong>Cliente</strong>, se é um membro do Staff selecione <strong>Administração</strong></p>
     </div>
     <button type="button" class="login-box" value="Cliente"> Cliente</button>
     <button type="button" class="login-box" value="Administração">Administração</button>
+
+    <%- include('./partials/footer.ejs') %>
 </body>
 </html>
 
