@@ -18,10 +18,7 @@ const productSchema = new Schema({
         type: productTypes,
         required=true
     },
-    id:{
-        type:number,
-        required:true
-    }
+    
 })
 
 const product= mongoose.model('product',productSchema);

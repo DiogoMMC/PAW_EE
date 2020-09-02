@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+
 
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
@@ -11,6 +13,12 @@ var ementaRouter = require('./routes/ementa');
 
 
 var app = express();
+
+//connect to mongoDB
+const dbURI='mongodb://pawee:pawee@eepaw-shard-00-00.fmmvt.mongodb.net:27017,eepaw-shard-00-01.fmmvt.mongodb.net:27017,eepaw-shard-00-02.fmmvt.mongodb.net:27017/Paw-EE?ssl=true&replicaSet=atlas-132jp3-shard-0&authSource=admin&retryWrites=true&w=majority'
+mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
+ .then((result)=> console.log('conected to db'))
+ .catch((err)=> console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
