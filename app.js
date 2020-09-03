@@ -17,7 +17,7 @@ var app = express();
 //connect to mongoDB
 const dbURI='mongodb://pawee:pawee@eepaw-shard-00-00.fmmvt.mongodb.net:27017,eepaw-shard-00-01.fmmvt.mongodb.net:27017,eepaw-shard-00-02.fmmvt.mongodb.net:27017/Paw-EE?ssl=true&replicaSet=atlas-132jp3-shard-0&authSource=admin&retryWrites=true&w=majority'
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
- .then((result)=> console.log('conected to db'))
+ .then((result)=> app.listen(4000))
  .catch((err)=> console.log(err));
 
 
@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', homeRouter);
 app.use('/users', usersRouter);
-app.use('admin',adminRouter);
+app.use('/admin',adminRouter);
 app.use('/ementa',ementaRouter);
 
 

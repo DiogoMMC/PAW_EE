@@ -5,25 +5,45 @@
         <%- include('./partials/nav.ejs') %>
         <div class="ementa">
         <h1>
-            Cardapio Bom Sabor
+            Cardapio Expresso Coutinho
         </h1>
+        <% if(products.length>0) { %>
         <ul class="pratos-principais">
-            <h2>Pratos principais</h2>
-            <li> comida 1 </li>
-            <li> comida 1 </li>
-            <li> comida 1 </li>  
+            <h2>Pratos Principais</h2>
+            <% products.forEach(product => { %>
+                <%  if(product.type=='COURSE') { %>
+                <li> <%= product.title+ ' //'+ product.price %> </li>
+                <% } %>
+            <% }) %>
         </ul>
+        
         <ul class="bebidas">
-            <h2> Bebidas </h2>
-            <l1> bebida 1 </l1>
-            <li> bebida 2 </li>
+            <h2>Bebidas</h2>
+            <% products.forEach(product => { %>
+                <%  if(product.type=='DRINK') { %>
+                <li> <%= product.title + '//'+ product.price %> </li>
+                <% } %>
+            <% }) %>
         </ul>
         <ul class="sobremesa">
             <h2>Sobremesas</h2>
-            <li> sobremesa 1 </li>
-            <li> sobremesa 2</li>
+            <% products.forEach(product => { %>
+                <%  if(product.type=='DESSERT') { %>
+                <li> <%= product.title+ '//'+ product.price %> </li>
+                <% } %>
+            <% }) %>
         </ul>
+        <ul class="sobremesa">
+            <h2>Extras</h2>
+            <% products.forEach(product => { %>
+                <%  if(product.type=='EXTRA') { %>
+                <li> <%= product.title + ' //'+ product.price %> </li>
+                <% } %>
+            <% }) %>
+        </ul>
+        <% } %>
         </div>
+        
         <%- include('./partials/footer.ejs') %>
     </body>
 </thml>

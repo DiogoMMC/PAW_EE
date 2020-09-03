@@ -16,10 +16,13 @@ const productSchema = new Schema({
     },
     type:{
         type: productTypes,
-        required=true
+        required:true
     },
-    
+    price:{
+        type:Number,
+        required:true
+    }
 })
 
-const product= mongoose.model('product',productSchema);
-module.exports= product
+const Product= mongoose.model('Produto',productSchema);
+module.exports= Product
