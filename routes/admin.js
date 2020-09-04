@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Product = require('./../models/produtos.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -7,7 +8,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/ementa', function(req, res, next) {
-  res.render('./adminViews/adminEmenta');
+  Product.find()
+        .then((result)=>{ 
+            res.render('./adminViews/adminEmenta',{ products:result }  )
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
 });
 
 router.get('/clients', function(req, res, next) {
