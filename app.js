@@ -10,6 +10,9 @@ var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var homeRouter = require('./routes/home');
 var ementaRouter = require('./routes/ementa');
+var adminClientRouter = require('./routes/adminClients')
+var adminEmentaRouter = require('./routes/adminEmenta')
+var adminReservesRouter = require('./routes/adminReserves')
 
 
 var app = express();
@@ -32,10 +35,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 app.use('/', homeRouter);
 app.use('/users', usersRouter);
 app.use('/admin',adminRouter);
 app.use('/ementa',ementaRouter);
+app.use('/admin/ementa',adminEmentaRouter);
+app.use('/admin/clients',adminClientRouter);
+app.use('/admin/reserves',adminReservesRouter);
+
 
 
 // catch 404 and forward to error handler

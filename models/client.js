@@ -7,13 +7,13 @@ const clientSchema = new Schema({
         required: true
     },
     reservations:{//id de todas as reservas feitas por este cliente
-        type: reservation,
+        type: [String],
         required:true
-    },
+    }/*,
     clientID:{
         type:Number,
         required:true
-    }
+    }*/
 })
 
 const Client= mongoose.model('Client',clientSchema);

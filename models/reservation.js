@@ -5,22 +5,23 @@ const produtos = require('./produtos')
 
 const reservationSchema = new Schema({
     numberOfPeople:{
-        type: number,
+        type: Number,
         required: true
     },
     courses:{
-        type: produtos,// verificar se esta bem
+        type: [String],
         required:false
     },
     price:{
         type:Number,
         required:true
-    },
-    reservationID:{
-        type:number,
-        required:true
     }
+    /*,reservationID:{
+        type:mongoose.Types.ObjectId,
+        required:true
+    }*/
 })
+
 
 const Reservation = mongoose.model('Reservation',clientSchema);
 module.exports = Reservation
