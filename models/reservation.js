@@ -42,6 +42,10 @@ const reservationSchema = new Schema({
     time:{
         type:Number,
         required:true
+    },
+    outros:{
+        type:String,
+        required:false
     }
 })
 
