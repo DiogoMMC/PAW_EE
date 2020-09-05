@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <%- include('../partials/admin_nav.ejs') %>
+    <h1>Página Adminstrativa de Clientes</h1>
+    <% if(cliente.length>0){ %>
+      <ul class="cliente-list">
+     <% cliente.forEach(element => { %>
+
+
+      <ul class="cliente-information">
+
+      <li> Nome: <%= element.name %> </li>
+      <li> ID: <%= element._id %> </li>
+
+      <ul class="cliente-reservations">
+        <h2>Reservations made:</h2>
+      <% element.reservations.forEach(reserve => { %>
+        
+      <li> <%= reserve %> </li>
+
+      <% }); %>
+
+      </ul>
+    
+      </ul>
+
+
+     <% }); %>
+    </ul>
+    <% } %>  
+
+    <%- include('../partials/footer.ejs') %>
+  </body>
+</html>

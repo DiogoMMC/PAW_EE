@@ -10,7 +10,7 @@ var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var homeRouter = require('./routes/home');
 var ementaRouter = require('./routes/ementa');
-var adminClientRouter = require('./routes/adminClients')
+var adminClienteRouter = require('./routes/adminClientes')
 var adminEmentaRouter = require('./routes/adminEmenta')
 var adminReservesRouter = require('./routes/adminReserves')
 
@@ -42,7 +42,7 @@ app.use('/users', usersRouter);
 app.use('/admin',adminRouter);
 app.use('/ementa',ementaRouter);
 app.use('/admin/ementa',adminEmentaRouter);
-app.use('/admin/clients',adminClientRouter);
+app.use('/admin/clientes',adminClienteRouter);
 app.use('/admin/reserves',adminReservesRouter);
 
 

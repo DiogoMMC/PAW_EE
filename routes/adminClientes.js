@@ -6,7 +6,7 @@ var client = require('../models/client');
 router.get('/', function(req, res, next) {
   client.find()
   .then((result)=>{ 
-      res.render('./adminViews/adminClient',{ client:result }  )
+      res.render('./adminViews/adminClientes',{ cliente:result }  )
   })
   .catch((err)=>{
       console.log(err);
