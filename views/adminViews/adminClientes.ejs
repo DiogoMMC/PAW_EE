@@ -10,12 +10,13 @@
 
 
       <ul class="cliente-information">
+        <h2>Cliente: <%= element._id %> </h2>
 
       <li> Nome: <%= element.name %> </li>
       <li> ID: <%= element._id %> </li>
 
       <ul class="cliente-reservations">
-        <h2>Reservations made:</h2>
+        <h3>Reservations made:</h3>
       <% element.reservations.forEach(reserve => { %>
         
       <li> <%= reserve %> </li>
