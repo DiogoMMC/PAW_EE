@@ -3,7 +3,50 @@
   <%- include('../partials/head.ejs') %>
   <body>
     <%- include('../partials/admin_nav.ejs') %>
-    <h1>Página Adminstrativa</h1>
+    <h1>Página Adminstrativa das Reservas</h1>
+
+    <ul class="all-reserves">
+      <h2>Reservas</h2>
+
+      <% reservations.forEach(element => { %>
+        <ul class="reserve">
+
+          <li> Nome da Reserva: <input type="text" value="<%= element.title %>"> </li>
+          <% if(element.courses=!null) { %>
+          <% element.courses.forEach(course => { %>
+            <h3>Pratos</h3>
+          <li> <input type="text" value="<%= course %>"> </li>
+
+          <% }); %>
+          <li> Preço: <input type="text" value="<%= element.price %>"> </li>
+          <% } %>
+          <li class="state-inputs">
+            <h3>Estado da Reserva</h3>
+
+            <input type="radio" id="pendente" name="state" value="pendente">
+            <label for="pendente">pendente</label><br>
+
+            <input type="radio" id="confirmada" name="state" value="confirmada">
+            <label for="confirmada">confirmada</label><br>
+
+            <input type="radio" id="cancelada" name="state" value="cancelada">
+            <label for="cancelada">cancelada</label><br>
+
+            <input type="radio" id="nao-compareceu" name="state" value="nao-compareceu">
+            <label for="nao-compareceu">nao-compareceu</label><br>
+          
+          </li>  
+
+
+
+          <li> Refeição: <%= element.MEAL%> </li>
+
+          <li> Hora: <%= element.time %> </li>
+
+        </ul>
+     <% }); %>
+
+    </ul>
     <h2>Página de reservas</h2>
 
     <%- include('../partials/footer.ejs') %>

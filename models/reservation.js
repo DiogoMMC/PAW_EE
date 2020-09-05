@@ -25,7 +25,7 @@ const reservationSchema = new Schema({
     },
     price:{
         type:Number,
-        required:true
+        required:false
     },
     state:{
         type:reservationState,
@@ -34,9 +34,17 @@ const reservationSchema = new Schema({
     meal:{
         type:MEAL,
         required:true
+    },
+    title:{
+        type:String,
+        required:true
+    },
+    time:{
+        type:Number,
+        required:true
     }
 })
 
 
-const Reservation = mongoose.model('Reservation',clientSchema);
+const Reservation = mongoose.model('Reservation',reservationSchema);
 module.exports = Reservation
