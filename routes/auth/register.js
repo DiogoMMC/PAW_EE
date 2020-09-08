@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   const { name, email, password } = req.body;
   const hashedPassword = getHashedPassword(password);
-
+  
   // Check if client with the same email is also registered
   Client.exists({ email: email }, function (err, result) {
     if (result) {
