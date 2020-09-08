@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const client = require('./client')
-const produtos = require('./produtos')
 
 const reservationState={
     HOLD:"pendente",
@@ -15,6 +13,11 @@ const MEAL={
 };
 
 const reservationSchema = new Schema({
+    client: {
+        type: Schema.Types.ObjectId,
+        ref: 'Client',
+        required: true
+    },
     numberOfPeople:{
         type: Number,
         required: true

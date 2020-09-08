@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const clientSchema = new Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
-    reservations:{//id de todas as reservas feitas por este cliente
-        type: [String],
-        required:true
-    }/*,
-    clientID:{
-        type:Number,
-        required:true
-    }*/
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
 })
-const Client= mongoose.model('Client',clientSchema);
-module.exports= Client
+const Client = mongoose.model('Client', clientSchema);
+module.exports = Client
