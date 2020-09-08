@@ -4,17 +4,24 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var session = require('express-session');
 
+// routers
+// authentication
 var registerRouter = require('./routes/auth/register');
 var loginRouter = require('./routes/auth/login');
+var logoutRouter = require('./routes/auth/logout');
+var adminLoginRouter = require('./routes/auth/adminLogin');
+// admin
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
-var homeRouter = require('./routes/home');
-var ementaRouter = require('./routes/ementa');
 var adminClienteRouter = require('./routes/adminClientes')
-// authentication
 var adminEmentaRouter = require('./routes/adminEmenta')
 var adminReservesRouter = require('./routes/adminReserves')
+// geral
+var homeRouter = require('./routes/home');
+var ementaRouter = require('./routes/ementa');
+// clientes
 
 
 var app = express();
@@ -36,19 +43,33 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  resave: false, // don't save session if unmodified
+  saveUninitialized: false, // don't create session until something stored
+  secret: 'shhhh, very secret'
+}));
+
+// middleware to make 'user' available to all templates
+app.use(function (req, res, next) {
+  res.locals.user = req.session.user;
+  res.locals.admin = req.session.admin;
+  next();
+});
 
 // authentication
-const requireAuth = (req, res, next) => {
-  if (req.user) {
+const requireClientAuth = (req, res, next) => {
+  if (req.session.user) {
     next();
   } else {
-    res.render('login', {
-      message: 'Please login to continue',
+    res.render('./auth/login', {
+      message: 'Faça login para continuar',
     });
   }
 };
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
+app.use('/adminlogin', adminLoginRouter);
 
 // general routes
 app.use('/', homeRouter);

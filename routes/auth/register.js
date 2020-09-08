@@ -3,7 +3,11 @@ var router = express.Router();
 const Client = require('../../models/client');
 
 router.get('/', function (req, res) {
-  res.render('./auth/register', { message: null });
+  if (req.session.user) {
+    res.redirect('/')
+  } else {
+    res.render('./auth/register', { message: null });
+  }
 });
 
 router.post('/', function (req, res) {

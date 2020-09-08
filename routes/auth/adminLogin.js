@@ -1,28 +1,27 @@
 var express = require('express');
 var router = express.Router();
-const Client = require('../../models/client');
+const Admin = require('../../models/admin');
 
 router.get('/', function (req, res) {
-  if (req.session.user) {
+  if (req.session.admin) {
     res.redirect('/')
   } else {
-    res.render('./auth/login', { message: null });
+    res.render('./auth/adminLogin', { message: null });
   }
 });
 
 router.post('/', function (req, res) {
-  const { email, password } = req.body;
+  const { name, password } = req.body;
 
   // Check if client with the same email is also registered
-  Client.findOne({ email: email, password: password }, function (err, result) {
+  Admin.findOne({ name: name, password: password }, function (err, result) {
     // sucess
     if (result) {
       // create session
       req.session.regenerate(function () {
-        req.session.user = {
+        req.session.admin = {
           _id: result.id,
           name: result.name,
-          email: result.email,
         };
         console.log(req.session);
         res.redirect('/');
@@ -30,7 +29,7 @@ router.post('/', function (req, res) {
     }
     // invalid client
     else {
-      res.render('./auth/login', {
+      res.render('./auth/adminLogin', {
         message: 'Login errado.',
       });
     }

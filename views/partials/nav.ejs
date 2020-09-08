@@ -12,14 +12,40 @@
       <li class="nav-item">
         <a class="nav-link" href="/about">Sobre nós</a>
       </li>
+      <% user %>
     </ul>
     <ul class="navbar-nav">
+      <% if(user) { %>
+      <li class="nav-item">
+        <span class="nav-link disabled">Bem-vindo, <%= user.name %>.</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/newreservation">Fazer Reserva</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reservation">Ver Reservas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+      <% } else if(admin) { %>
+      <li class="nav-item">
+        <span class="nav-link disabled">Bem-vindo, <%= admin.name %>.</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/newreservation">Ver Reserva</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+      <% } else { %>
       <li class="nav-item">
         <a class="nav-link" href="/register">Registar</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/login">Login</a>
       </li>
+      <% } %>
     </ul>
   </div>
 </nav>

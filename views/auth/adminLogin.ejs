@@ -6,16 +6,15 @@
   <%- include('../partials/nav.ejs') %>
   <div class="row justify-content-md-center" style="margin-top: 30px">
     <div class="col-md-4">
-
       <% if (message) { %>
       <div class="alert alert-danger" role="alert">
         <%= message %>
       </div>
       <% } %>
-      <form method="POST" action="/login">
+      <form method="POST" action="/adminlogin">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email</label>
-          <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <label for="exampleInputEmail1">Admin Username</label>
+          <input name="name" type="text" class="form-control" id="exampleInputEmail1">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
@@ -24,7 +23,7 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
 
-      <small>Login para <a href="adminlogin">Admins</a>.</small>
+      <small>Login para <a href="login">Clientes</a>.</small>
 
     </div>
   </div>
