@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
   if (req.session.admin) {
     res.redirect('/')
   } else {
-    res.render('./auth/adminLogin', { message: null });
+    res.render('./admin/login', { message: null });
   }
 });
 
@@ -35,9 +35,9 @@ router.post('/', function (req, res) {
         res.redirect('/');
       });
     }
-    // invalid client
+    // invalid admin
     else {
-      res.render('./auth/adminLogin', {
+      res.render('./admin/login', {
         message: 'Login errado.',
       });
     }

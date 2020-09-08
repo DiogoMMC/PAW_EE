@@ -11,17 +11,13 @@ var session = require('express-session');
 var registerRouter = require('./routes/auth/register');
 var loginRouter = require('./routes/auth/login');
 var logoutRouter = require('./routes/auth/logout');
-var adminLoginRouter = require('./routes/auth/adminLogin');
 // admin
 var adminRouter = require('./routes/admin');
-var usersRouter = require('./routes/users');
-var adminClienteRouter = require('./routes/adminClientes')
-var adminEmentaRouter = require('./routes/adminEmenta')
-var adminReservesRouter = require('./routes/adminReserves')
 // geral
 var homeRouter = require('./routes/home');
 var ementaRouter = require('./routes/ementa');
 // clientes
+var usersRouter = require('./routes/users');
 
 
 var app = express();
@@ -57,32 +53,15 @@ app.use(function (req, res, next) {
 });
 
 // authentication
-const requireClientAuth = (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.render('./auth/login', {
-      message: 'Faça login para continuar',
-    });
-  }
-};
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/adminlogin', adminLoginRouter);
-
 // general routes
 app.use('/', homeRouter);
 app.use('/users', usersRouter);
-app.use('/admin', adminRouter);
 app.use('/ementa', ementaRouter);
-// client routes
 // admin routes
-app.use('/admin/ementa', adminEmentaRouter);
-app.use('/admin/clientes', adminClienteRouter);
-app.use('/admin/reserves', adminReservesRouter);
-
-
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
