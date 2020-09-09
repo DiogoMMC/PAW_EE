@@ -5,53 +5,187 @@
 <body>
   <%- include('../partials/nav.ejs') %>
   <div class="content">
+    <div class="container">
+      <h1>Menu</h1>
 
-    <h1>Página Adminstrativa da Ementa</h1>
+      <h2>Novo Produto</h2>
+      <form method="POST" action="/admin/menu">
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label for="newProductName">Nome</label>
+            <input name="title" class="form-control type=" text" id="newProductName" placeholder="Nome">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="newProductPrice">Preço</label>
+            <input name="price" type="number" class="form-control" min="0.01" step="0.01" id="newProductPrice"
+              placeholder="Preço">
+          </div>
+        </div>
+        <!-- TYPE -->
+        <div class="d-flex justify-content-around flex-wrap align-items-center">
+          <div class="form-check">
+            <input required class="form-check-input" type="radio" name="type" id="newProductCourse" value="course">
+            <label class="form-check-label" for="newProductCourse">
+              Prato Principal
+            </label>
+          </div>
+          <div class="form-check">
+            <input required class="form-check-input" type="radio" name="type" id="newProductDrink" value="drink">
+            <label class="form-check-label" for="newProductDrink">
+              Bebida
+            </label>
+          </div>
+          <div class="form-check">
+            <input required class="form-check-input" type="radio" name="type" id="newProductDessert" value="dessert">
+            <label class="form-check-label" for="newProductDessert">
+              Sobremesa
+            </label>
+          </div>
+          <div class="form-check">
+            <input required class="form-check-input" type="radio" name="type" id="newProductExtra" value="extra">
+            <label class="form-check-label" for="newProductExtra">
+              Extra
+            </label>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submeter Produto</button>
+      </form>
 
-    <div class="ementa">
-      <h1>
-        Cardapio Expresso Coutinho
-      </h1>
+      <hr>
 
+      <h2>Produtos Existentes</h2>
       <% if(products.length>0) { %>
-      <ul class="pratos-principais">
-        <h2>Pratos Principais</h2>
-        <% products.forEach(product => { %>
-        <%  if(product.type=='COURSE') { %>
-        <li> <%= product.title+ ' //'+ product.price %> </li>
-        <button class="del">x</button>
-        <% } %>
-        <% }) %>
-      </ul>
+      <h3>Pratos Principais</h3>
+      <% products.filter((product) => product.type == 'course').forEach(product => { %>
+      <div class="row">
+        <div class="col-10">
+          <form method="POST" action="/admin/menu/<%= product._id %>?_method=PUT">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="productName<%= product._id %>">Nome</label>
+                <input name="title" class="form-control type=" text" id="productName<%= product._id %>"
+                  placeholder="Nome" value="<%= product.title %>">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="productPrice<%= product._id %>">Preço</label>
+                <input name="price" type="number" class="form-control" min="0.01" step="0.01"
+                  id="productPrice<%= product._id %>" placeholder="Preço" value="<%= product.price.toFixed(2) %>">
+              </div>
+              <div class="form-group col-md-3 d-flex align-items-end">
+                <button style="width: 100%;" type="submit" class="btn btn-primary">Atualizar Produto</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-2 d-flex align-items-end">
+          <form style="width: 100%;" method="POST" action="/admin/menu/<%= product._id %>?_method=DELETE">
+            <div class="form-group d-flex align-items-end">
+              <button style="width: 100%;" type="submit" class="btn btn-danger">Apagar Produto</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <% }) %>
 
-      <ul class="bebidas">
-        <h2>Bebidas</h2>
-        <% products.forEach(product => { %>
-        <%  if(product.type=='DRINK') { %>
-        <li> <%= product.title + '//'+ product.price %> </li>
-        <button class="del">x</button>
-        <% } %>
-        <% }) %>
-      </ul>
-      <ul class="sobremesa">
-        <h2>Sobremesas</h2>
-        <% products.forEach(product => { %>
-        <%  if(product.type=='DESSERT') { %>
-        <li> <%= product.title+ '//'+ product.price %> </li>
-        <button class="del">x</button>
-        <% } %>
-        <% }) %>
-      </ul>
+      <h3>Bebidas</h3>
+      <% products.filter((product) => product.type == 'drink').forEach(product => { %>
+      <div class="row">
+        <div class="col-10">
+          <form method="POST" action="/admin/menu/<%= product._id %>?_method=PUT">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="productName<%= product._id %>">Nome</label>
+                <input name="title" class="form-control type=" text" id="productName<%= product._id %>"
+                  placeholder="Nome" value="<%= product.title %>">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="productPrice<%= product._id %>">Preço</label>
+                <input name="price" type="number" class="form-control" min="0.01" step="0.01"
+                  id="productPrice<%= product._id %>" placeholder="Preço" value="<%= product.price.toFixed(2) %>">
+              </div>
+              <div class="form-group col-md-3 d-flex align-items-end">
+                <button style="width: 100%;" type="submit" class="btn btn-primary">Atualizar Produto</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-2 d-flex align-items-end">
+          <form style="width: 100%;" method="POST" action="/admin/menu/<%= product._id %>?_method=DELETE">
+            <div class="form-group d-flex align-items-end">
+              <button style="width: 100%;" type="submit" class="btn btn-danger">Apagar Produto</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <% }) %>
+      <h3>Pratos Principais</h3>
+      <% products.filter((product) => product.type == 'dessert').forEach(product => { %>
+      <div class="row">
+        <div class="col-10">
+          <form method="POST" action="/admin/menu/<%= product._id %>?_method=PUT">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="productName<%= product._id %>">Nome</label>
+                <input name="title" class="form-control type=" text" id="productName<%= product._id %>"
+                  placeholder="Nome" value="<%= product.title %>">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="productPrice<%= product._id %>">Preço</label>
+                <input name="price" type="number" class="form-control" min="0.01" step="0.01"
+                  id="productPrice<%= product._id %>" placeholder="Preço" value="<%= product.price.toFixed(2) %>">
+              </div>
+              <div class="form-group col-md-3 d-flex align-items-end">
+                <button style="width: 100%;" type="submit" class="btn btn-primary">Atualizar Produto</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-2 d-flex align-items-end">
+          <form style="width: 100%;" method="POST" action="/admin/menu/<%= product._id %>?_method=DELETE">
+            <div class="form-group d-flex align-items-end">
+              <button style="width: 100%;" type="submit" class="btn btn-danger">Apagar Produto</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <% }) %>
 
-      <ul class="sobremesa">
-        <h2>Extras</h2>
-        <% products.forEach(product => { %>
-        <%  if(product.type=='EXTRA') { %>
-        <li> <%= product.title + ' //'+ product.price %> </li>
-        <button class="del">x</button>
-        <% } %>
-        <% }) %>
-      </ul>
+      <h3>Pratos Principais</h3>
+      <% products.filter((product) => product.type == 'extra').forEach(product => { %>
+      <div class="row">
+        <div class="col-10">
+          <form method="POST" action="/admin/menu/<%= product._id %>?_method=PUT">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="productName<%= product._id %>">Nome</label>
+                <input name="title" class="form-control type=" text" id="productName<%= product._id %>"
+                  placeholder="Nome" value="<%= product.title %>">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="productPrice<%= product._id %>">Preço</label>
+                <input name="price" type="number" class="form-control" min="0.01" step="0.01"
+                  id="productPrice<%= product._id %>" placeholder="Preço" value="<%= product.price.toFixed(2) %>">
+              </div>
+              <div class="form-group col-md-3 d-flex align-items-end">
+                <button style="width: 100%;" type="submit" class="btn btn-primary">Atualizar Produto</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-2 d-flex align-items-end">
+          <form style="width: 100%;" method="POST" action="/admin/menu/<%= product._id %>?_method=DELETE">
+            <div class="form-group d-flex align-items-end">
+              <button style="width: 100%;" type="submit" class="btn btn-danger">Apagar Produto</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <% }) %>
+      <% } else { %>
+      <div class="row text-center">
+        <p>Ainda não realizou nenhuma reserva.</p>
+      </div>
       <% } %>
     </div>
   </div>

@@ -4,152 +4,155 @@
 
 <body>
   <%- include('./partials/nav.ejs') %>
-  <div class="container">
-    <h1>
-      Reservas
-    </h1>
-    <hr>
-    <h2>Nova Reserva</h2>
-    <form method="POST" action="/reservations">
-      <div class="form-row">
-        <!-- NUMERO DE PESSOAS -->
-        <div class="form-group col-md-4">
-          <label for="inputEmail4">Número de Pessoas</label>
-          <input required name="numberOfPeople" type="number" class="form-control" id="inputEmail4">
-        </div>
-        <!-- TIPO DE REFEIÇÃO -->
-        <div class="form-group col-md-4">
-          <label>Refeiçao</label>
-          <div class="d-flex justify-content-around align-items-center">
-            <div class="form-check">
-              <input required class="form-check-input" type="radio" name="meal" id="exampleRadios1" value="lunch"
-                checked>
-              <label class="form-check-label" for="exampleRadios1">
-                Almoço
-              </label>
+  <div class="content">
+
+    <div class="container">
+      <h1>
+        Reservas
+      </h1>
+      <hr>
+      <h2>Nova Reserva</h2>
+      <form method="POST" action="/reservations">
+        <div class="form-row">
+          <!-- NUMERO DE PESSOAS -->
+          <div class="form-group col-md-4">
+            <label for="inputEmail4">Número de Pessoas</label>
+            <input required name="numberOfPeople" type="number" class="form-control" id="inputEmail4">
+          </div>
+          <!-- TIPO DE REFEIÇÃO -->
+          <div class="form-group col-md-4">
+            <label>Refeiçao</label>
+            <div class="d-flex justify-content-around align-items-center">
+              <div class="form-check">
+                <input required class="form-check-input" type="radio" name="meal" id="exampleRadios1" value="lunch"
+                  checked>
+                <label class="form-check-label" for="exampleRadios1">
+                  Almoço
+                </label>
+              </div>
+              <div class="form-check">
+                <input required class="form-check-input" type="radio" name="meal" id="exampleRadios2" value="dinner">
+                <label class="form-check-label" for="exampleRadios2">
+                  Jantar
+                </label>
+              </div>
             </div>
-            <div class="form-check">
-              <input required class="form-check-input" type="radio" name="meal" id="exampleRadios2" value="dinner">
-              <label class="form-check-label" for="exampleRadios2">
-                Jantar
-              </label>
+          </div>
+          <!-- DATA -->
+          <div class="form-group col-md-4">
+            <label for="inputDate">Dia</label>
+            <input required name="date" type="date" class="form-control" id="inputDate">
+          </div>
+        </div>
+        <!-- COMENTÀRIOS -->
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Comentários</label>
+          <textarea name="comments" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <!-- PRATOS -->
+        <h2>Pratos Principais</h2>
+        <div class="form-row">
+          <% products.filter((product) => product.type == "course").forEach(product => { %>
+          <div class="form-check form-check-inline">
+            <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
+              id="defaultCheck'<%= product._id %>">
+            <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+              <%= product.title %> - <%= product.price.toFixed(2) %>€
+            </label>
+          </div>
+          <% }) %>
+        </div>
+        <br>
+        <h2>Bebidas</h2>
+        <div class="form-row">
+          <% products.filter((product) => product.type == "drink").forEach(product => { %>
+          <div class="form-check form-check-inline">
+            <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
+              id="defaultCheck'<%= product._id %>">
+            <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+              <%= product.title %> - <%= product.price.toFixed(2) %>€
+            </label>
+          </div>
+          <% }) %>
+        </div>
+        <br>
+        <h2>Sobremesa</h2>
+        <div class="form-row">
+          <% products.filter((product) => product.type == "dessert").forEach(product => { %>
+          <div class="form-check form-check-inline">
+            <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
+              id="defaultCheck'<%= product._id %>">
+            <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+              <%= product.title %> - <%= product.price.toFixed(2) %>€
+            </label>
+          </div>
+          <% }) %>
+        </div>
+        <br>
+        <h2>Extras</h2>
+        <div class="form-row">
+          <% products.filter((product) => product.type == "extra").forEach(product => { %>
+          <div class="form-check form-check-inline">
+            <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
+              id="defaultCheck'<%= product._id %>">
+            <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+              <%= product.title %> - <%= product.price.toFixed(2) %>€
+            </label>
+          </div>
+          <% }) %>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Criar Reserva</button>
+      </form>
+
+      <hr>
+
+      <h2>Historico de Reservas</h2>
+      <% if(reservations.length > 0) { %>
+      <div class="row">
+        <% for(var i=0; i < reservations.length; i++) { %>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= reservations[i].date.toLocaleDateString("pt-PT", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </h5>
+              <p class="card-text"><%= reservations[i].numberOfPeople %> Pessoas</p>
+              <p class="card-text"><%= reservations[i].meal === "lunch" ? 'Almoço' : 'Jantar' %></p>
+              <p class="card-text"><%= reservations[i].comments %></p>
+              <% if(reservations[i].price) { %>
+              <p class="card-text">Preço: <%= reservations[i].price.toFixed(2) %></p>
+              <% } %>
+              <hr>
+              <% if(reservations[i].state === "hold") { %>
+              <p class="card-text text-info">Em espera.</p>
+              <form method="POST" action="/reservations/<%= reservations[i]._id %>?_method=PUT">
+                <input name="state" type="hidden" value="canceled">
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+              </form>
+              <% } else if(reservations[i].state === "confirmed") { %>
+              <p class="card-text text-success">Confirmado.</p>
+              <form method="POST" action="/reservations/<%= reservations[i]._id %>?_method=PUT">
+                <input name="state" type="hidden" value="canceled">
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+              </form>
+              <% } else if(reservations[i].state === "canceled") { %>
+              <p class="card-text text-danger">Cancelado.</p>
+              <a href="#" class="btn btn-danger disabled">Cancelar</a>
+              <% } else if(reservations[i].state === "noshow") { %>
+              <p class="card-text text-danger">Não Compareceu.</p>
+              <a href="#" class="btn btn-danger disabled">Cancelar</a>
+              <% } %>
             </div>
           </div>
         </div>
-        <!-- DATA -->
-        <div class="form-group col-md-4">
-          <label for="inputDate">Dia</label>
-          <input required name="date" type="date" class="form-control" id="inputDate">
+        <% } %>
+        <% } else { %>
+        <div class="row text-center">
+          <p>Ainda não realizou nenhuma reserva.</p>
         </div>
+        <% } %>
       </div>
-      <!-- COMENTÀRIOS -->
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Comentários</label>
-        <textarea name="comments" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>
-      <!-- PRATOS -->
-      <h2>Pratos Principais</h2>
-      <div class="form-row">
-        <% products.filter((product) => product.type == "course").forEach(product => { %>
-        <div class="form-check form-check-inline">
-          <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
-            id="defaultCheck'<%= product._id %>">
-          <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-            <%= product.title %> - <%= product.price.toFixed(2) %>€
-          </label>
-        </div>
-        <% }) %>
-      </div>
-      <br>
-      <h2>Bebidas</h2>
-      <div class="form-row">
-        <% products.filter((product) => product.type == "drink").forEach(product => { %>
-        <div class="form-check form-check-inline">
-          <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
-            id="defaultCheck'<%= product._id %>">
-          <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-            <%= product.title %> - <%= product.price.toFixed(2) %>€
-          </label>
-        </div>
-        <% }) %>
-      </div>
-      <br>
-      <h2>Sobremesa</h2>
-      <div class="form-row">
-        <% products.filter((product) => product.type == "dessert").forEach(product => { %>
-        <div class="form-check form-check-inline">
-          <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
-            id="defaultCheck'<%= product._id %>">
-          <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-            <%= product.title %> - <%= product.price.toFixed(2) %>€
-          </label>
-        </div>
-        <% }) %>
-      </div>
-      <br>
-      <h2>Extras</h2>
-      <div class="form-row">
-        <% products.filter((product) => product.type == "extra").forEach(product => { %>
-        <div class="form-check form-check-inline">
-          <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
-            id="defaultCheck'<%= product._id %>">
-          <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-            <%= product.title %> - <%= product.price.toFixed(2) %>€
-          </label>
-        </div>
-        <% }) %>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-primary">Criar Reserva</button>
-    </form>
-
-    <hr>
-
-    <h2>Historico de Reservas</h2>
-    <% if(reservations.length > 0) { %>
-    <div class="row">
-      <% for(var i=0; i < reservations.length; i++) { %>
-      <div class="col-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">
-              <%= reservations[i].date.toLocaleDateString("pt-PT", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>
-            </h5>
-            <p class="card-text"><%= reservations[i].numberOfPeople %> Pessoas</p>
-            <p class="card-text"><%= reservations[i].meal === "lunch" ? 'Almoço' : 'Jantar' %></p>
-            <p class="card-text"><%= reservations[i].comments %></p>
-            <% if(reservations[i].price) { %>
-            <p class="card-text">Preço: <%= reservations[i].price.toFixed(2) %></p>
-            <% } %>
-            <hr>
-            <% if(reservations[i].state === "hold") { %>
-            <p class="card-text text-info">Em espera.</p>
-            <form method="POST" action="/reservations/<%= reservations[i]._id %>?_method=PUT">
-              <input name="state" type="hidden" value="canceled">
-              <button type="submit" class="btn btn-danger">Cancelar</button>
-            </form>
-            <% } else if(reservations[i].state === "confirmed") { %>
-            <p class="card-text text-success">Confirmado.</p>
-            <form method="POST" action="/reservations/<%= reservations[i]._id %>?_method=PUT">
-              <input name="state" type="hidden" value="canceled">
-              <button type="submit" class="btn btn-danger">Cancelar</button>
-            </form>
-            <% } else if(reservations[i].state === "canceled") { %>
-            <p class="card-text text-danger">Cancelado.</p>
-            <a href="#" class="btn btn-danger disabled">Cancelar</a>
-            <% } else if(reservations[i].state === "noshow") { %>
-            <p class="card-text text-danger">Não Compareceu.</p>
-            <a href="#" class="btn btn-danger disabled">Cancelar</a>
-            <% } %>
-          </div>
-        </div>
-      </div>
-      <% } %>
-      <% } else { %>
-      <div class="row text-center">
-        <p>Ainda não realizou nenhuma reserva.</p>
-      </div>
-      <% } %>
     </div>
   </div>
   <%- include('./partials/footer.ejs') %>

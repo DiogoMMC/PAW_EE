@@ -12,4 +12,50 @@ router.get('/', function (req, res, next) {
     })
 });
 
+router.put('/:productID', function (req, res, next) {
+  const { title, price } = req.body;
+  const productID = req.params.productID;
+
+  Product.findByIdAndUpdate(productID, {
+    title: title,
+    price: price,
+  })
+    .then((result) => {
+      res.redirect('/admin/menu')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
+
+router.delete('/:productID', function (req, res, next) {
+  const productID = req.params.productID;
+
+  Product.findByIdAndDelete(productID)
+    .then((result) => {
+      res.redirect('/admin/menu')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
+
+router.post('/', function (req, res, next) {
+
+  const { title, price, type } = req.body;
+
+  var newProduct = new Product({
+    title: title,
+    price: price,
+    type: type,
+  });
+  newProduct.save()
+    .then(() => {
+      res.redirect("/admin/menu")
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
+
 module.exports = router;
