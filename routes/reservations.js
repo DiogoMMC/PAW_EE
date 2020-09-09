@@ -30,7 +30,7 @@ router.post('/', function (req, res, next) {
 
   // compare dates
   if (new Date(date) < new Date()) {
-    req.session.error = "Data cenas"
+    req.session.error = "Data inferior à data atual";
     res.redirect('/reservations');
     return;
   }
