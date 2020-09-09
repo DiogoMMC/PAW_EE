@@ -10,6 +10,7 @@ function restrict(req, res, next) {
   if (req.session.admin) {
     next();
   } else {
+    req.session.error = "Por favor faça login novamente."
     res.redirect('/admin/login');
   }
 }
