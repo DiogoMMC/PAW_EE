@@ -13,4 +13,17 @@ router.get('/', function (req, res, next) {
     })
 });
 
+router.delete('/:clientID', function (req, res, next) {
+  const clientID = req.params.clientID;
+
+  Client.findByIdAndDelete(clientID)
+    .then((result) => {
+      req.session.success = "Cliente apagado com sucesso.";
+      res.redirect('./admin/clients')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
+
 module.exports = router;

@@ -38,6 +38,7 @@ router.put('/:reservationID', function (req, res, next) {
     products: products
   })
     .then((result) => {
+      req.session.success = "Reserva editada com sucesso.";
       res.redirect('/admin/reservations');
     })
     .catch((err) => {

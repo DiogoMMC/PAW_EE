@@ -6,6 +6,17 @@
   <%- include('../partials/nav.ejs') %>
   <div class="content">
     <div class="container">
+
+      <% if (error) { %>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
+      </div>
+      <% } else if (success) { %>
+      <div class="alert alert-success" role="alert">
+        <%= success %>
+      </div>
+      <% } %>
+
       <h1 class="my-3">Clientes</h1>
       <% if(clients.length>0){ %>
       <div class="row pb-3">

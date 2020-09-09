@@ -51,6 +51,11 @@ app.use(session({
 app.use(function (req, res, next) {
   res.locals.user = req.session.user;
   res.locals.admin = req.session.admin;
+  //
+  res.locals.error = req.session.error;
+  res.locals.success = req.session.success;
+  req.session.error = null;
+  req.session.success = null;
   next();
 });
 

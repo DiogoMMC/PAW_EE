@@ -7,8 +7,17 @@
   <div class="content">
     <div class="container-fluid">
 
-      <h1 class="my-3">Gestão de Reservas</h1>
+      <% if (error) { %>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
+      </div>
+      <% } else if (success) { %>
+      <div class="alert alert-success" role="alert">
+        <%= success %>
+      </div>
+      <% } %>
 
+      <h1 class="my-3">Gestão de Reservas</h1>
 
       <% if(reservations.length > 0) { %>
       <div class="row">

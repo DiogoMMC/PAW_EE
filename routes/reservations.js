@@ -29,8 +29,11 @@ router.post('/', function (req, res, next) {
   const userID = res.locals.user._id;
 
   // compare dates
-  if (date < new Date())
-    console.log("FODA-SE");
+  if (new Date(date) < new Date()) {
+    req.session.error = "Data cenas"
+    res.redirect('/reservations');
+    return;
+  }
 
   Product.find().where('_id').in(products).exec()
     .then((results) => {
@@ -57,6 +60,7 @@ router.post('/', function (req, res, next) {
         { $push: { reservations: newReservation._id } },
       ).then(() => {
         // redirect to reservas
+        req.session.success = "Reserva criada com sucesso."
         res.redirect('/reservations');
       });
 
@@ -72,6 +76,7 @@ router.put('/:reservationID', function (req, res, next) {
 
   Reservation.findByIdAndUpdate(reservationID, { state: state })
     .then((result) => {
+      req.session.success = "Reserva cancelada com sucesso."
       res.redirect('/reservations');
     })
     .catch((err) => {

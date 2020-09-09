@@ -21,6 +21,7 @@ router.put('/:productID', function (req, res, next) {
     price: price,
   })
     .then((result) => {
+      req.session.success = "Produto editado com sucesso.";
       res.redirect('/admin/menu')
     })
     .catch((err) => {
@@ -33,6 +34,7 @@ router.delete('/:productID', function (req, res, next) {
 
   Product.findByIdAndDelete(productID)
     .then((result) => {
+      req.session.success = "Produto apagado com sucesso.";
       res.redirect('/admin/menu')
     })
     .catch((err) => {
@@ -51,6 +53,7 @@ router.post('/', function (req, res, next) {
   });
   newProduct.save()
     .then(() => {
+      req.session.success = "Produto criado com sucesso.";
       res.redirect("/admin/menu")
     })
     .catch((err) => {
