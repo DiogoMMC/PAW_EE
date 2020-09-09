@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Reservation = require('../models/reservation')
-var Product = require('../models/produtos.js');
+var Product = require('../models/produtos');
+var Client = require('../models/client');
 
 
 router.get('/', function (req, res, next) {
@@ -33,7 +34,6 @@ router.post('/', function (req, res, next) {
 
   Product.find().where('_id').in(products).exec()
     .then((results) => {
-      console.log(results);
       var price = 0;
       results.forEach(product => {
         price += product.price;
@@ -52,8 +52,14 @@ router.post('/', function (req, res, next) {
         comments: comments,
       });
       newReservation.save();
-      // redirect to reservas
-      res.redirect('/reservations');
+      // save reservation in client
+      Client.findByIdAndUpdate(userID,
+        { $push: { reservations: newReservation._id } },
+      ).then(() => {
+        // redirect to reservas
+        res.redirect('/reservations');
+      });
+
     })
     .catch((err) => {
       console.log(err);

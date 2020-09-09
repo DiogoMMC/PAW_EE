@@ -111,8 +111,8 @@
       <% if(reservations.length > 0) { %>
       <div class="row">
         <% for(var i=0; i < reservations.length; i++) { %>
-        <div class="col-4">
-          <div class="card">
+        <div class="col-4 pb-3">
+          <div style="height: 100%;" class="card">
             <div class="card-body">
               <h5 class="card-title">
                 <%= reservations[i].date.toLocaleDateString("pt-PT", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>

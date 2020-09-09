@@ -3,37 +3,34 @@
 <%- include('../partials/head.ejs') %>
 
 <body>
+  <%- include('../partials/nav.ejs') %>
   <div class="content">
+    <div class="container">
+      <h1 class="my-3">Clientes</h1>
+      <% if(clients.length>0){ %>
+      <div class="row pb-3">
+        <% clients.forEach(client => { %>
+        <div class="col-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= client.name %></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%= client.email %></h6>
+              <p class="card-text">Reservations: <%= client.reservations.length %></p>
+              <form method="POST" action="/admin/clients/<%= client._id %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger">Apagar</a>
+              </form>
+            </div>
+          </div>
+        </div>
 
-    <%- include('../partials/nav.ejs') %>
-    <h1>Página Adminstrativa de Clientes</h1>
-    <% if(cliente.length>0){ %>
-    <ul class="cliente-list">
-      <% cliente.forEach(element => { %>
-
-
-      <ul class="cliente-information">
-        <h2>Cliente: <%= element._id %> <button class="del">x</button> </h2>
-
-        <li> Nome: <%= element.name %> </li>
-        <li> ID: <%= element._id %> </li>
-
-        <ul class="cliente-reservations">
-          <h3>Reservations made:</h3>
-          <% element.reservations.forEach(reserve => { %>
-
-          <li> <%= reserve %> </li>
-
-          <% }); %>
-
-        </ul>
-
-      </ul>
-
-
-      <% }); %>
-    </ul>
-    <% } %>
+        <% }); %>
+      </div>
+      <% } else { %>
+      <div class="row text-center">
+        <p>Ainda não tem clientes registados.</p>
+      </div>
+      <% } %>
+    </div>
   </div>
   <%- include('../partials/footer.ejs') %>
 </body>

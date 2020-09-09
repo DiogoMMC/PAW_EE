@@ -34,7 +34,8 @@ router.post('/', function (req, res) {
     var newCient = new Client({
       name: name,
       email: email,
-      password: hashedPassword
+      password: hashedPassword,
+      reservations: []
     });
     newCient.save();
 
