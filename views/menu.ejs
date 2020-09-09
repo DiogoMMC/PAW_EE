@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html>
-       <%- include('./partials/head.ejs') %>
-    <body>
-        <%- include('./partials/nav.ejs') %>
-        <div class="ementa">
-        <h1>
-            Cardapio Expresso Coutinho
-        </h1>
-        <% if(products.length>0) { %>
-        <ul class="pratos-principais">
-            <h2>Pratos Principais</h2>
-            <% products.forEach(product => { %>
-                <%  if(product.type=='COURSE') { %>
-                <li> <%= product.title+ ' //'+ product.price %> </li>
-                <% } %>
-            <% }) %>
-        </ul>
-        
-        <ul class="bebidas">
-            <h2>Bebidas</h2>
-            <% products.forEach(product => { %>
-                <%  if(product.type=='DRINK') { %>
-                <li> <%= product.title + '//'+ product.price %> </li>
-                <% } %>
-            <% }) %>
-        </ul>
-        <ul class="sobremesa">
-            <h2>Sobremesas</h2>
-            <% products.forEach(product => { %>
-                <%  if(product.type=='DESSERT') { %>
-                <li> <%= product.title+ '//'+ product.price %> </li>
-                <% } %>
-            <% }) %>
-        </ul>
-        <ul class="sobremesa">
-            <h2>Extras</h2>
-            <% products.forEach(product => { %>
-                <%  if(product.type=='EXTRA') { %>
-                <li> <%= product.title + ' //'+ product.price %> </li>
-                <% } %>
-            <% }) %>
-        </ul>
+<%- include('./partials/head.ejs') %>
+
+<body>
+  <%- include('./partials/nav.ejs') %>
+  <div class="content">
+    <div class="container">
+      <h1 class="my-3">
+        Menu Expresso Coutinho
+      </h1>
+      <% if(products.length>0) { %>
+      <ul class="pratos-principais">
+        <h2>Pratos Principais</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='course') { %>
+        <li> <%= product.title %> - <%= product.price.toFixed(2) %>€</li>
         <% } %>
-        </div>
-        
-        <%- include('./partials/footer.ejs') %>
-    </body>
+        <% }) %>
+      </ul>
+
+      <ul class="bebidas">
+        <h2>Bebidas</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='drink') { %>
+        <li> <%= product.title %> - <%= product.price.toFixed(2) %>€</li>
+        <% } %>
+        <% }) %>
+      </ul>
+      <ul class="sobremesa">
+        <h2>Sobremesas</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='dessert') { %>
+        <li> <%= product.title %> - <%= product.price.toFixed(2) %>€</li>
+        <% } %>
+        <% }) %>
+      </ul>
+      <ul class="sobremesa">
+        <h2>Extras</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='extra') { %>
+        <li> <%= product.title %> - <%= product.price.toFixed(2) %>€</li>
+        <% } %>
+        <% }) %>
+      </ul>
+      <% } %>
+    </div>
+  </div>
+
+  <%- include('./partials/footer.ejs') %>
+</body>
+
 </html>

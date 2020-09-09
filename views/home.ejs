@@ -1,16 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <%- include('./partials/head.ejs') %>
+<%- include('./partials/head.ejs') %>
+
 <body>
-    <%- include('./partials/nav.ejs') %>
-    <div class="bemvindo">
-        <h1> Bem Vindo ao Restaurante Expresso Coutinho</h1>
-        <p>se é um cliente à procura de fazer uma reserva, selecione a opção <strong>Cliente</strong>, se é um membro do Staff selecione <strong>Administração</strong></p>
+  <%- include('./partials/nav.ejs') %>
+  <div class="content">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <!-- Slide One - Set the background image for this slide in the line below -->
+        <div class="carousel-item active" style="background-image: url('images/francesinha.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h2 class="display-4">A melhor Francesinho do Norte</h2>
+            <p class="lead">Receita Original da familia Coutinho.</p>
+          </div>
+        </div>
+        <!-- Slide Two - Set the background image for this slide in the line below -->
+        <div class="carousel-item" style="background-image: url('images/restaurant.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h2 class="display-4">Restaurante limpo e seguro</h2>
+            <p class="lead">Com todas as devidas precauções e recomendações da DGS.</p>
+          </div>
+        </div>
+        <!-- Slide Three - Set the background image for this slide in the line below -->
+        <div class="carousel-item" style="background-image: url('images/drinks.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h2 class="display-4">Serviço de Bar</h2>
+            <p class="lead">Aberto todos os dias até às 2h da manhã.</p>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-    <button type="button" class="login-box" value="Cliente"> Cliente</button>
-    <button type="button" class="login-box" value="Administração">Administração</button>
 
-    <%- include('./partials/footer.ejs') %>
+    <!-- Page Content -->
+    <section class="pt-5">
+      <div class="container">
+        <h1 class="display-4">Bem-Vindo ao Expresso Coutinho</h1>
+        <p class="lead">Café, Pastelaria e Restaurante
+      </div>
+    </section>
+  </div>
+  <%- include('./partials/footer.ejs') %>
 </body>
-</html>
 
+</html>

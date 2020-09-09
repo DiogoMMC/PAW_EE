@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../partials/head.ejs') %>
-  <body>
-    <%- include('../partials/nav.ejs') %>
+<%- include('../partials/head.ejs') %>
 
+<body>
+  <%- include('../partials/nav.ejs') %>
+  <div class="content">
 
     <h1>Página Adminstrativa da Ementa</h1>
 
     <div class="ementa">
       <h1>
-          Cardapio Expresso Coutinho
+        Cardapio Expresso Coutinho
       </h1>
 
       <% if(products.length>0) { %>
       <ul class="pratos-principais">
-          <h2>Pratos Principais</h2>
-          <% products.forEach(product => { %>
-              <%  if(product.type=='COURSE') { %>
-              <li> <%= product.title+ ' //'+ product.price %> </li>
-              <button class="del">x</button>
-              <% } %>
-          <% }) %>
+        <h2>Pratos Principais</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='COURSE') { %>
+        <li> <%= product.title+ ' //'+ product.price %> </li>
+        <button class="del">x</button>
+        <% } %>
+        <% }) %>
       </ul>
-      
+
       <ul class="bebidas">
-          <h2>Bebidas</h2>
-          <% products.forEach(product => { %>
-              <%  if(product.type=='DRINK') { %>
-              <li> <%= product.title + '//'+ product.price %> </li>
-              <button class="del">x</button>
-              <% } %>
-          <% }) %>
+        <h2>Bebidas</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='DRINK') { %>
+        <li> <%= product.title + '//'+ product.price %> </li>
+        <button class="del">x</button>
+        <% } %>
+        <% }) %>
       </ul>
       <ul class="sobremesa">
-          <h2>Sobremesas</h2>
-          <% products.forEach(product => { %>
-              <%  if(product.type=='DESSERT') { %>
-              <li> <%= product.title+ '//'+ product.price %> </li>
-              <button class="del">x</button>
-              <% } %>
-          <% }) %>
+        <h2>Sobremesas</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='DESSERT') { %>
+        <li> <%= product.title+ '//'+ product.price %> </li>
+        <button class="del">x</button>
+        <% } %>
+        <% }) %>
       </ul>
 
       <ul class="sobremesa">
-          <h2>Extras</h2>
-          <% products.forEach(product => { %>
-              <%  if(product.type=='EXTRA') { %>
-              <li> <%= product.title + ' //'+ product.price %> </li>
-              <button class="del">x</button>
-              <% } %>
-          <% }) %>
+        <h2>Extras</h2>
+        <% products.forEach(product => { %>
+        <%  if(product.type=='EXTRA') { %>
+        <li> <%= product.title + ' //'+ product.price %> </li>
+        <button class="del">x</button>
+        <% } %>
+        <% }) %>
       </ul>
       <% } %>
-      </div>
+    </div>
+  </div>
+  <%- include('../partials/footer.ejs') %>
 
-    <%- include('../partials/footer.ejs') %>
+</body>
 
-  </body>
 </html>

@@ -17,6 +17,7 @@ var adminRouter = require('./routes/admin');
 // geral
 var homeRouter = require('./routes/home');
 var menuRouter = require('./routes/menu');
+var aboutRouter = require('./routes/about');
 // clientes
 var reservationsRouter = require('./routes/reservations');
 
@@ -28,7 +29,6 @@ const dbURI = 'mongodb://pawee:pawee@eepaw-shard-00-00.fmmvt.mongodb.net:27017,e
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then((result) => app.listen(4000))
   .catch((err) => console.log(err));
-
 
 
 // view engine setup
@@ -69,6 +69,7 @@ app.use('/logout', logoutRouter);
 // general routes
 app.use('/', homeRouter);
 app.use('/menu', menuRouter);
+app.use('/about', aboutRouter);
 // client routes
 app.use('/reservations', restrict, reservationsRouter);
 // admin routes

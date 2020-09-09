@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../partials/head.ejs') %>
-  <body>
+<%- include('../partials/head.ejs') %>
+
+<body>
+  <div class="content">
+
     <%- include('../partials/nav.ejs') %>
     <h1>Página Adminstrativa de Clientes</h1>
     <% if(cliente.length>0){ %>
-      <ul class="cliente-list">
-     <% cliente.forEach(element => { %>
+    <ul class="cliente-list">
+      <% cliente.forEach(element => { %>
 
 
       <ul class="cliente-information">
-      <h2>Cliente: <%= element._id %> <button class="del">x</button> </h2>
+        <h2>Cliente: <%= element._id %> <button class="del">x</button> </h2>
 
-      <li> Nome: <%= element.name %> </li>
-      <li> ID: <%= element._id %> </li>
+        <li> Nome: <%= element.name %> </li>
+        <li> ID: <%= element._id %> </li>
 
-      <ul class="cliente-reservations">
-      <h3>Reservations made:</h3>
-      <% element.reservations.forEach(reserve => { %>
-        
-      <li> <%= reserve %> </li>
+        <ul class="cliente-reservations">
+          <h3>Reservations made:</h3>
+          <% element.reservations.forEach(reserve => { %>
+
+          <li> <%= reserve %> </li>
+
+          <% }); %>
+
+        </ul>
+
+      </ul>
+
 
       <% }); %>
-
-      </ul>
-    
-      </ul>
-
-
-     <% }); %>
     </ul>
-    <% } %>  
+    <% } %>
+  </div>
+  <%- include('../partials/footer.ejs') %>
+</body>
 
-    <%- include('../partials/footer.ejs') %>
-  </body>
 </html>

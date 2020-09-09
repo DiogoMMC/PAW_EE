@@ -4,176 +4,179 @@
 
 <body>
   <%- include('../partials/nav.ejs') %>
-  <div class="container-fluid">
+  <div class="content">
+    <div class="container-fluid">
 
-    <h1>Página Adminstrativa das Reservas</h1>
+      <h1 class="my-3">Gestão de Reservas</h1>
 
 
-    <% if(reservations.length > 0) { %>
-    <div class="row">
-      <% for(var i=0; i < reservations.length; i++) { %>
-      <div class="col-2">
-        <div class="card" style="height: 100%;">
-          <div class="card-body">
+      <% if(reservations.length > 0) { %>
+      <div class="row">
+        <% for(var i=0; i < reservations.length; i++) { %>
+        <div class="col-2">
+          <div class="card" style="height: 100%;">
+            <div class="card-body">
 
-            <form method="POST" action="/admin/reservations/<%= reservations[i]._id %>?_method=PUT">
-              <div class="form-group">
-                <!-- Cliente -->
-                <label for="inputEmail<%= reservations[i]._id %>">Cliente</label>
-                <input disabled required name="client" type="text" class="form-control"
-                  id="inputEmail<%= reservations[i]._id %>" value="<%= reservations[i].client.name %>">
-                <!-- NUMERO DE PESSOAS -->
-                <label for="people<%= reservations[i]._id %>">Número de Pessoas</label>
-                <input required name="numberOfPeople" type="number" class="form-control"
-                  id="people<%= reservations[i]._id %>" value="<%= reservations[i].numberOfPeople %>">
-                <!-- PREÇO -->
-                <label for="price<%= reservations[i]._id %>">Preço</label>
-                <input name="price" type="number" class="form-control" id="price<%= reservations[i]._id %>"
-                  value="<%= reservations[i].price %>">
-                <!-- TIPO DE REFEIÇÃO -->
-                <label>Refeiçao</label>
-                <div class="d-flex justify-content-around align-items-center">
-                  <div class="form-check">
-                    <input required class="form-check-input" type="radio" name="meal"
-                      id="exampleRadios<%= reservations[i]._id %>" value="lunch"
-                      <%= reservations[i].meal == "lunch" ? 'checked' : '' %>>
-                    <label class="form-check-label" for="exampleRadios<%= reservations[i]._id %>">
-                      Almoço
-                    </label>
+              <form method="POST" action="/admin/reservations/<%= reservations[i]._id %>?_method=PUT">
+                <div class="form-group">
+                  <!-- Cliente -->
+                  <label for="inputEmail<%= reservations[i]._id %>">Cliente</label>
+                  <input disabled required name="client" type="text" class="form-control"
+                    id="inputEmail<%= reservations[i]._id %>" value="<%= reservations[i].client.name %>">
+                  <!-- NUMERO DE PESSOAS -->
+                  <label for="people<%= reservations[i]._id %>">Número de Pessoas</label>
+                  <input required name="numberOfPeople" type="number" class="form-control"
+                    id="people<%= reservations[i]._id %>" value="<%= reservations[i].numberOfPeople %>">
+                  <!-- PREÇO -->
+                  <label for="price<%= reservations[i]._id %>">Preço</label>
+                  <input name="price" type="number" class="form-control" id="price<%= reservations[i]._id %>"
+                    value="<%= reservations[i].price %>">
+                  <!-- TIPO DE REFEIÇÃO -->
+                  <label>Refeiçao</label>
+                  <div class="d-flex justify-content-around align-items-center">
+                    <div class="form-check">
+                      <input required class="form-check-input" type="radio" name="meal"
+                        id="exampleRadios<%= reservations[i]._id %>" value="lunch"
+                        <%= reservations[i].meal == "lunch" ? 'checked' : '' %>>
+                      <label class="form-check-label" for="exampleRadios<%= reservations[i]._id %>">
+                        Almoço
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input required class="form-check-input" type="radio" name="meal"
+                        id="radios<%= reservations[i]._id %>" value="dinner"
+                        <%= reservations[i].meal == "dinner" ? 'checked' : '' %>>
+                      <label class="form-check-label" for="radios<%= reservations[i]._id %>">
+                        Jantar
+                      </label>
+                    </div>
                   </div>
-                  <div class="form-check">
-                    <input required class="form-check-input" type="radio" name="meal"
-                      id="radios<%= reservations[i]._id %>" value="dinner"
-                      <%= reservations[i].meal == "dinner" ? 'checked' : '' %>>
-                    <label class="form-check-label" for="radios<%= reservations[i]._id %>">
-                      Jantar
-                    </label>
-                  </div>
-                </div>
-                <!-- DATA -->
-                <%
+                  <!-- DATA -->
+                  <%
                   var year = reservations[i].date.getFullYear();
                   var month = reservations[i].date.getMonth() + 1;
                   var day = reservations[i].date.getDate();
                   var date = year + "-" + month.toString().padStart(2, "0") + "-" + day.toString().padStart(2, "0");
                 %>
-                <label for="inputDate<%= reservations[i]._id %>">Data</label>
-                <input name="date" type="date" class="form-control" id="inputDate<%= reservations[i]._id %>"
-                  value="<%= date %>">
-              </div>
-              <!-- COMENTÀRIOS -->
-              <div class="form-group">
-                <label for="exampleFormControlTextarea<%= reservations[i]._id %>">Comentários</label>
-                <textarea name="comments" class="form-control" id="exampleFormControlTextarea<%= reservations[i]._id %>"
-                  rows="3"><%= reservations[i].comments %></textarea>
-              </div>
-              <!-- ESTADO DA RESERVA -->
-              <label>Estado da Reserva</label>
-              <div class="d-flex justify-content-around flex-wrap align-items-center">
-                <div class="form-check">
-                  <input required class="form-check-input" type="radio" name="state"
-                    id="holdRadio<%= reservations[i]._id %>" value="hold"
-                    <%= reservations[i].state == "hold" ? 'checked' : '' %>>
-                  <label class="form-check-label" for="holdRadio<%= reservations[i]._id %>">
-                    Em Espera
-                  </label>
+                  <label for="inputDate<%= reservations[i]._id %>">Data</label>
+                  <input name="date" type="date" class="form-control" id="inputDate<%= reservations[i]._id %>"
+                    value="<%= date %>">
                 </div>
-                <div class="form-check">
-                  <input required class="form-check-input" type="radio" name="state"
-                    id="confirmedRadio<%= reservations[i]._id %>" value="confirmed"
-                    <%= reservations[i].state == "confirmed" ? 'checked' : '' %>>
-                  <label class="form-check-label" for="confirmedRadio<%= reservations[i]._id %>">
-                    Confirmado
-                  </label>
+                <!-- COMENTÀRIOS -->
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea<%= reservations[i]._id %>">Comentários</label>
+                  <textarea name="comments" class="form-control"
+                    id="exampleFormControlTextarea<%= reservations[i]._id %>"
+                    rows="3"><%= reservations[i].comments %></textarea>
                 </div>
-                <div class="form-check">
-                  <input required class="form-check-input" type="radio" name="state"
-                    id="canceledRadio<%= reservations[i]._id %>" value="canceled"
-                    <%= reservations[i].state == "canceled" ? 'checked' : '' %>>
-                  <label class="form-check-label" for="canceledRadio<%= reservations[i]._id %>">
-                    Cancelado
-                  </label>
+                <!-- ESTADO DA RESERVA -->
+                <label>Estado da Reserva</label>
+                <div class="d-flex justify-content-around flex-wrap align-items-center">
+                  <div class="form-check">
+                    <input required class="form-check-input" type="radio" name="state"
+                      id="holdRadio<%= reservations[i]._id %>" value="hold"
+                      <%= reservations[i].state == "hold" ? 'checked' : '' %>>
+                    <label class="form-check-label" for="holdRadio<%= reservations[i]._id %>">
+                      Em Espera
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input required class="form-check-input" type="radio" name="state"
+                      id="confirmedRadio<%= reservations[i]._id %>" value="confirmed"
+                      <%= reservations[i].state == "confirmed" ? 'checked' : '' %>>
+                    <label class="form-check-label" for="confirmedRadio<%= reservations[i]._id %>">
+                      Confirmado
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input required class="form-check-input" type="radio" name="state"
+                      id="canceledRadio<%= reservations[i]._id %>" value="canceled"
+                      <%= reservations[i].state == "canceled" ? 'checked' : '' %>>
+                    <label class="form-check-label" for="canceledRadio<%= reservations[i]._id %>">
+                      Cancelado
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input required class="form-check-input" type="radio" name="state"
+                      id="noshowRadio<%= reservations[i]._id %>" value="noshow"
+                      <%= reservations[i].state == "noshow" ? 'noshow' : '' %>>
+                    <label class="form-check-label" for="noshowRadio<%= reservations[i]._id %>">
+                      Não Compareceu
+                    </label>
+                  </div>
                 </div>
-                <div class="form-check">
-                  <input required class="form-check-input" type="radio" name="state"
-                    id="noshowRadio<%= reservations[i]._id %>" value="noshow"
-                    <%= reservations[i].state == "noshow" ? 'noshow' : '' %>>
-                  <label class="form-check-label" for="noshowRadio<%= reservations[i]._id %>">
-                    Não Compareceu
-                  </label>
+                <hr>
+                <!-- PRATOS -->
+                <h2>Pratos Principais</h2>
+                <div class="form-row">
+                  <% products.filter((product) => product.type == "course").forEach(product => { %>
+                  <div class="form-check form-check-inline">
+                    <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
+                      id="defaultCheck'<%= product._id %>"
+                      <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %>>
+                    <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+                      <%= product.title %> - <%= product.price.toFixed(2) %>€
+                    </label>
+                  </div>
+                  <% }) %>
                 </div>
-              </div>
-              <hr>
-              <!-- PRATOS -->
-              <h2>Pratos Principais</h2>
-              <div class="form-row">
-                <% products.filter((product) => product.type == "course").forEach(product => { %>
-                <div class="form-check form-check-inline">
-                  <input name="products" class="form-check-input" type="checkbox" value="<%= product._id %>"
-                    id="defaultCheck'<%= product._id %>"
-                    <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %>>
-                  <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-                    <%= product.title %> - <%= product.price.toFixed(2) %>€
-                  </label>
+                <br>
+                <h2>Bebidas</h2>
+                <div class="form-row">
+                  <% products.filter((product) => product.type == "drink").forEach(product => { %>
+                  <div class="form-check form-check-inline">
+                    <input <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %> name="products"
+                      class="form-check-input" type="checkbox" value="<%= product._id %>"
+                      id="defaultCheck'<%= product._id %>">
+                    <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+                      <%= product.title %> - <%= product.price.toFixed(2) %>€
+                    </label>
+                  </div>
+                  <% }) %>
                 </div>
-                <% }) %>
-              </div>
-              <br>
-              <h2>Bebidas</h2>
-              <div class="form-row">
-                <% products.filter((product) => product.type == "drink").forEach(product => { %>
-                <div class="form-check form-check-inline">
-                  <input <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %> name="products"
-                    class="form-check-input" type="checkbox" value="<%= product._id %>"
-                    id="defaultCheck'<%= product._id %>">
-                  <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-                    <%= product.title %> - <%= product.price.toFixed(2) %>€
-                  </label>
+                <br>
+                <h2>Sobremesa</h2>
+                <div class="form-row">
+                  <% products.filter((product) => product.type == "dessert").forEach(product => { %>
+                  <div class="form-check form-check-inline">
+                    <input <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %> name="products"
+                      class="form-check-input" type="checkbox" value="<%= product._id %>"
+                      id="defaultCheck'<%= product._id %>">
+                    <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+                      <%= product.title %> - <%= product.price.toFixed(2) %>€
+                    </label>
+                  </div>
+                  <% }) %>
                 </div>
-                <% }) %>
-              </div>
-              <br>
-              <h2>Sobremesa</h2>
-              <div class="form-row">
-                <% products.filter((product) => product.type == "dessert").forEach(product => { %>
-                <div class="form-check form-check-inline">
-                  <input <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %> name="products"
-                    class="form-check-input" type="checkbox" value="<%= product._id %>"
-                    id="defaultCheck'<%= product._id %>">
-                  <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-                    <%= product.title %> - <%= product.price.toFixed(2) %>€
-                  </label>
+                <br>
+                <h2>Extras</h2>
+                <div class="form-row">
+                  <% products.filter((product) => product.type == "extra").forEach(product => { %>
+                  <div class="form-check form-check-inline">
+                    <input <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %> name="products"
+                      class="form-check-input" type="checkbox" value="<%= product._id %>"
+                      id="defaultCheck'<%= product._id %>">
+                    <label class="form-check-label" for="defaultCheck'<%= product._id %>">
+                      <%= product.title %> - <%= product.price.toFixed(2) %>€
+                    </label>
+                  </div>
+                  <% }) %>
                 </div>
-                <% }) %>
-              </div>
-              <br>
-              <h2>Extras</h2>
-              <div class="form-row">
-                <% products.filter((product) => product.type == "extra").forEach(product => { %>
-                <div class="form-check form-check-inline">
-                  <input <%= reservations[i].courses.includes(product._id) ? 'checked' : '' %> name="products"
-                    class="form-check-input" type="checkbox" value="<%= product._id %>"
-                    id="defaultCheck'<%= product._id %>">
-                  <label class="form-check-label" for="defaultCheck'<%= product._id %>">
-                    <%= product.title %> - <%= product.price.toFixed(2) %>€
-                  </label>
-                </div>
-                <% }) %>
-              </div>
-              <br>
-              <button type="submit" class="btn btn-primary">Atualizar Reserva</button>
-            </form>
+                <br>
+                <button type="submit" class="btn btn-primary">Atualizar Reserva</button>
+              </form>
 
 
+            </div>
           </div>
         </div>
+        <% } %>
+        <% } else { %>
+        <div class="row text-center">
+          <p>Ainda não realizou nenhuma reserva.</p>
+        </div>
+        <% } %>
       </div>
-      <% } %>
-      <% } else { %>
-      <div class="row text-center">
-        <p>Ainda não realizou nenhuma reserva.</p>
-      </div>
-      <% } %>
     </div>
   </div>
 
