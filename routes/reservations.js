@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const { numberOfPeople, meal, date, comments,products } = req.body;
+  const { numberOfPeople, meal, date, comments, products } = req.body;
   const userID = res.locals.user._id;
 
   // compare dates
@@ -39,6 +39,7 @@ router.post('/', function (req, res, next) {
         price += product.price;
       });
       if (price == 0) price = null;
+      else price = Math.round(price * 95) / 100; // 5% discount (2 decimals)
       // save reservation
       var newReservation = new Reservation({
         client: userID,
@@ -69,7 +70,8 @@ router.put('/:reservationID', function (req, res, next) {
     })
     .catch((err) => {
       console.log(err);
-    })});
+    })
+});
 
 
 module.exports = router;
