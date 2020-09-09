@@ -44,7 +44,6 @@ router.post('/', function (req, res) {
         _id: newCient.id,
         name: newCient.name,
       };
-      console.log(req.session);
       res.redirect('/');
     });
   })

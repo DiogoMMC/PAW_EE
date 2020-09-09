@@ -1,57 +1,45 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const reservationState={
-    HOLD:"pendente",
-    CONFIRMED:'confirmada',
-    CANCELED:'cancelada',
-    LEFT:'nao compareceu'
-};
-const MEAL={
-    LUNCH:"almoço",
-    DINNER:"jantar"
-};
-
 const reservationSchema = new Schema({
     client: {
         type: Schema.Types.ObjectId,
         ref: 'Client',
         required: true
     },
-    numberOfPeople:{
+    numberOfPeople: {
         type: Number,
         required: true
     },
-    courses:{
-        type: [String],
-        required:false
+    courses: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Produto',
+        required: false
+    }],
+    price: {
+        type: Number,
+        required: false
     },
-    price:{
-        type:Number,
-        required:false
+    state: {
+        type: String,
+        enum: ["hold", "confirmed", "canceled", "noshow"],
+        required: true
     },
-    state:{
-        type:reservationState,
-        required:true
+    meal: {
+        type: String,
+        enum: ["lunch", "dinnner"],
+        required: true
     },
-    meal:{
-        type:MEAL,
-        required:true
+    date: {
+        type: Date,
+        required: true
     },
-    title:{
-        type:String,
-        required:true
-    },
-    time:{
-        type:Number,
-        required:true
-    },
-    outros:{
-        type:String,
-        required:false
+    comments: {
+        type: String,
+        required: false
     }
 })
 
 
-const Reservation = mongoose.model('Reservation',reservationSchema);
+const Reservation = mongoose.model('Reservation', reservationSchema);
 module.exports = Reservation

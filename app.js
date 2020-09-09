@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var methodOverride = require("method-override");
 
 // routers
 // authentication
@@ -15,16 +16,16 @@ var logoutRouter = require('./routes/auth/logout');
 var adminRouter = require('./routes/admin');
 // geral
 var homeRouter = require('./routes/home');
-var ementaRouter = require('./routes/ementa');
+var menuRouter = require('./routes/menu');
 // clientes
-var usersRouter = require('./routes/users');
+var reservationsRouter = require('./routes/reservations');
 
 
 var app = express();
 
 //connect to mongoDB
 const dbURI = 'mongodb://pawee:pawee@eepaw-shard-00-00.fmmvt.mongodb.net:27017,eepaw-shard-00-01.fmmvt.mongodb.net:27017,eepaw-shard-00-02.fmmvt.mongodb.net:27017/Paw-EE?ssl=true&replicaSet=atlas-132jp3-shard-0&authSource=admin&retryWrites=true&w=majority'
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then((result) => app.listen(4000))
   .catch((err) => console.log(err));
 
@@ -39,6 +40,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride("_method"))
 app.use(session({
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
@@ -52,14 +54,23 @@ app.use(function (req, res, next) {
   next();
 });
 
+function restrict(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
 // authentication
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 // general routes
 app.use('/', homeRouter);
-app.use('/users', usersRouter);
-app.use('/ementa', ementaRouter);
+app.use('/menu', menuRouter);
+// client routes
+app.use('/reservations', restrict, reservationsRouter);
 // admin routes
 app.use('/admin', adminRouter);
 

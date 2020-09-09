@@ -1,29 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const productTypes={
-    COURSE: 'course',
-    DRINK:'drink',
-    DESSERT:'dessert',
-    EXTRA:'extra'
-};
-
-
 const productSchema = new Schema({
-    title:{
+    title: {
         type: String,
         required: true
     },
-    type:{
-        type: productTypes,
-        required:true
+    type: {
+        type: String,
+        enum: ["course", "drink", "dessert", "extra"],
+        required: true
     },
-    price:{
-        type:Number,
-        required:true
+    price: {
+        type: Number,
+        required: true
     }
 })
 
 
-const Product= mongoose.model('Produto',productSchema);
-module.exports= Product
+const Product = mongoose.model('Produto', productSchema);
+module.exports = Product
